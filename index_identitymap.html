@@ -8,12 +8,31 @@
     <script type="text/javascript" charset="utf-8" src="js/scripts/jquery-1.10.2.min.js" ></script>
     <script type="text/javascript" charset="utf-8" src="js/scripts/handlebars.js" ></script>
     <script type="text/javascript" charset="utf-8" src="js/scripts/ember-1.0.0-rc.7.js" ></script>
+    <script type="text/javascript" charset="utf-8" src="js/scripts/ember-data.js" ></script>
     <script type="text/javascript" charset="utf-8" src="js/scripts/bootstrap-modal.js" ></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script type="text/javascript" charset="utf-8">
         var LDBB = Ember.Application.create();
+
+        LDBB.Adapter = DS.RESTAdapter.create({
+            namespace: 'json'
+        });
+
+        LDBB.Store = DS.Store.extend({
+            adapter: 'LDBB.Adapter'
+        });
+
+        LDBB.BucketKeyRoute = DS.Model.extend({
+            leys: DS.hasMany('LDBB.Key')
+        });
+
+        LDBB.Key = DS.Model.extend({
+            bucketName: DS.attr('string'),
+            keyName: DS.attr('string'),
+            value: DS.attr('string')
+        });
 
         LDBB.Router.map(function() {
             this.resource('buckets', {path: '/'}, function() {
@@ -25,7 +44,7 @@
 
         LDBB.BucketsRoute = Ember.Route.extend({
             model: function() {
-                return LDBB.Bucket.findAll();
+                return LDBB.Bucket.find();
             }
         });
 
@@ -281,27 +300,27 @@
             }
         });
 
-        LDBB.Key = LDBB.Model.extend({
-
-        });
-
-        LDBB.Key.reopenClass({
-            find: function(bucketid, keyid) {
-                return LDBB.Model.find('/json/buckets/' + bucketid + "/key", keyid, LDBB.Key, 'key');
-            },
-
-            findAll: function(bucketid) {
-                return LDBB.Model.findAll('/json/buckets/' + bucketid, LDBB.Key, 'bucket');
-            },
-
-            updateRecord: function(model) {
-                LDBB.Model.updateRecord("/json/buckets/" + model.get('bucketName') + "/key/" + model.get('keyName'), LDBB.Key, model);
-            },
-
-            createRecord: function(model) {
-                LDBB.Model.createRecord('/json/buckets/' + model.get('bucketName') + "/key/" + model.get('keyName'), LDBB.Key, model);
-            }
-        });
+//        LDBB.Key = LDBB.Model.extend({
+//
+//        });
+//
+//        LDBB.Key.reopenClass({
+//            find: function(bucketid, keyid) {
+//                return LDBB.Model.find('/json/buckets/' + bucketid + "/key", keyid, LDBB.Key, 'key');
+//            },
+//
+//            findAll: function(bucketid) {
+//                return LDBB.Model.findAll('/json/buckets/' + bucketid, LDBB.Key, 'bucket');
+//            },
+//
+//            updateRecord: function(model) {
+//                LDBB.Model.updateRecord("/json/buckets/" + model.get('bucketName') + "/key/" + model.get('keyName'), LDBB.Key, model);
+//            },
+//
+//            createRecord: function(model) {
+//                LDBB.Model.createRecord('/json/buckets/' + model.get('bucketName') + "/key/" + model.get('keyName'), LDBB.Key, model);
+//            }
+//        });
 
     </script>
 

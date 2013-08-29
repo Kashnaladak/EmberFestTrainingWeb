@@ -105,8 +105,8 @@ function logQUnit() {
         }
 
         if (testErrors.length > 0) {
-            for (var idx = 0; idx < testErrors.length; idx++) {
-                console.error(testErrors[idx] + "\n");
+            for (var idy = 0; idy < testErrors.length; idy++) {
+                console.error(testErrors[idy] + "\n");
             }
         }
 

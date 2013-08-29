@@ -229,7 +229,6 @@ LDBB.Key.reopenClass({
 
     find: function(bucketid, id) {
         return LDBB.Model.find('/json/buckets/' + bucketid + "/key", id, LDBB.Key, 'key');
-        return LDBB.Model.find(id, LDBB.Key);
     },
 
     findAll: function() {

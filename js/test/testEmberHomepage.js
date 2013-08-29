@@ -8,7 +8,7 @@ page.open('http://emberjs.com/', function () {
         console.log('Title as expected. Rendering screenshot!');
         page.render('emberjs.png');
     } else {
-        console.log("Title not as expected!")
+        console.log("Title not as expected!");
     }
 
     console.log("Test took: " + (Date.now() - before) + " ms.");

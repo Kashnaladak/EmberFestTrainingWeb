@@ -34,6 +34,6 @@ LDBB.UserController = Ember.ObjectController.extend({
     },
 
     isLoggedIn: function() {
-        return this.get('username') != null
+        return this.get('username') !== null;
     }.property('username')
 });
